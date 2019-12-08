@@ -59,8 +59,6 @@ class Agilent6612C:
         frame.add(self.output)
         box1.pack_start(frame, False, False, 10)
 
-
-
 #-----------------------
 # Battery charging safties
 #-----------------------
@@ -247,21 +245,15 @@ class Agilent6612C:
         save3_button.connect("clicked", self.save_prog3)
  
         gtk.timeout_add(500, self.update)
-        
-        
-        
+         
         self.window.connect("delete_event", self.delete_event)
         self.window.connect("destroy", self.destroy)
         #self.window.set_title((instrument_id.split(','))[0] + ' ' + (instrument_id.split(','))[1])
         self.window.set_title("Agilent 6612C - 40 Watt Programmable DC Power Supply")
         self.window.show_all()
 #-----------------------       
-        
-        
-        
-        
-        
-
+  
+  
     def delete_event(self, widget, event, data=None):
         return False
 
@@ -286,16 +278,6 @@ class Agilent6612C:
         self.current.set_markup(markup_span2 + self.read_current() +" A "+ '</span>')
         self.power.set_markup(markup_span2 + self.calc_power() +" W " + '</span>')
         return True
-
-
-
-
-
-    
-
-
-
-
 
     def read_id(self):
         self.serial.write("*idn?\r\n")
@@ -335,7 +317,6 @@ class Agilent6612C:
         return '{:.6f}'.format(mypower)
 #-----------------------
 
-
 #-----------------------
 # Overvoltage safty
 #-----------------------
@@ -346,9 +327,6 @@ class Agilent6612C:
         if myvolt > self.ovp:
             self.serial.write("outp 0\r\n")
 #-----------------------
-
-
-
 
 
 #-----------------------
@@ -364,17 +342,11 @@ class Agilent6612C:
             
 #-----------------------            
 
-
-
-
-            
-
     def enable_output(self, widget):
         if self.read_output() == 1:
             self.serial.write("outp 0\r\n")
         elif self.read_output() == 0:
             self.serial.write("outp 1\r\n")
-
 
 #-----------------------
 # Store and recall programs
@@ -403,7 +375,6 @@ class Agilent6612C:
     def save_prog3(self, widget):
         self.serial.write("*sav 3\r\n")
 #-----------------------
-
 
     def main(self):
         gtk.main()
